@@ -1,0 +1,64 @@
+{% extends 'baselayout2.html' %}
+{% load static %}
+
+{% block title %}<title>Urbank by Velta</title>{% endblock %}
+
+{%block sytles%} 
+<link rel="icon" type="image/png" sizes="16x16" href="{%static 'images/favicon.ico' %}">
+<link rel="stylesheet" href="{%static 'vendor/nice-select/css/nice-select.css' %}">
+<link rel="stylesheet" href="{%static 'vendor/waves/waves.min.css' %}">
+<link rel="stylesheet" href="{%static 'vendor/toastr/toastr.min.css' %}">
+<link rel="stylesheet" href="{%static 'css/style.css' %}">
+{%endblock%}
+    {% block main %}
+        
+
+        <script src="{%static 'js/global.js' %}"></script>
+
+        <script src="{%static 'vendor/amchart/amcharts.js' %}"></script>
+        <script src="{%static 'vendor/amchart/serial.js' %}"></script>
+        <script src="{%static 'vendor/amchart/dataloader.min.js' %}"></script>
+    
+        <script src="{%static 'js/plugins/amchart-init.js' %}"></script>
+        <!-- Complete payment progress
+        <script src="./vendor/toastr/toastr.min.js"></script>
+        <script src="./vendor/toastr/toastr-init.js"></script>
+    
+        <script src="./vendor/circle-progress/circle-progress.min.js"></script>
+        <script src="./vendor/circle-progress/circle-progress-init.js"></script>
+        -->
+    
+        <!--  flot-chart js -->
+        <script src="{%static 'vendor/perfect-scrollbar/perfect-scrollbar.min.js' %}"></script>
+    
+    
+        <script src="{%static 'js/scripts.js' %}"></script>
+    
+    
+        <script src="https://s3.tradingview.com/tv.js"></script>
+        <script>
+            new TradingView.widget(
+                {
+                    "width": "100%",
+                    "height": 460,
+                    "symbol": "BITSTAMP:BTCUSD",
+                    "interval": "D",
+                    "timezone": "Etc/UTC",
+                    "theme": "Light",
+                    "style": "1",
+                    "locale": "en",
+                    "toolbar_bg": "#f1f3f6",
+                    "enable_publishing": false,
+                    "withdateranges": true,
+                    "hide_side_toolbar": false,
+                    "allow_symbol_change": true,
+                    "show_popup_button": true,
+                    "popup_width": "1000",
+                    "popup_height": "650",
+                    "container_id": "tradingview_e8053"
+                }
+    
+            );
+    
+        </script>
+    {% endblock %}

@@ -1,0 +1,253 @@
+{% extends 'baselayout2.html' %}
+{% load static %}
+
+    {% block title %}<title>Deposit Urbank</title>{% endblock %}
+    {% block sytles %}
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="{%static 'images/favicon.ico' %}">
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="{%static 'vendor/nice-select/css/nice-select.css' %}">
+    <link rel="stylesheet" href="{%static 'vendor/waves/waves.min.css' %}">
+    <link rel="stylesheet" href="{%static 'css/style.css' %}">
+    {% endblock %}
+
+    {% block preload %}
+    <div id="preloader">
+        <div class="sk-three-bounce">
+            <div class="sk-child sk-bounce1"></div>
+            <div class="sk-child sk-bounce2"></div>
+            <div class="sk-child sk-bounce3"></div>
+        </div>
+    </div>
+    {% endblock %}
+
+    {% block main %}
+        <div class="page-title dashboard">
+            <div class="container">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="page-title-content">
+                            <p>Welcome Back,
+                                <span> {{user.firstname}} {{user.lastname}}</span>
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="content-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="card sub-menu">
+                            <div class="card-body">
+                                <ul class="d-flex">
+                                    <li class="nav-item">
+                                        <a href="{%url 'account-overview'%}" class="nav-link">
+                                            <i class="mdi mdi-bullseye"></i>
+                                            <span>Overview</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{%url 'account-deposit'%}" class="nav-link">
+                                            <i class="mdi mdi-heart"></i>
+                                            <span>Deposit</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{%url '404'%}" class="nav-link">
+                                            <i class="mdi mdi-pentagon"></i>
+                                            <span>Withdraw</span>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Wallet Deposit Address</h4>
+                            </div>
+                            <div class="card-body"  id="deposits">
+                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-toggle="tab" href="#tab1">BTC</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#tab2">DOGE</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#tab3">ETH</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane fade show active" id="tab1">
+                                        <div class="qrcode">
+                                            <!--div class="my-1" style="background-color: #FFFFFF; margin-left: 28.5rem; margin-right: 28.5rem;"-->
+                                                {{QRCodeBTC|safe}}
+                                            <!--/div-->
+                                        </div>
+                                        <form action="">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control"
+                                                    value={{BTC_wallet}} id="BTCtext" disabled>
+                                                <div class="input-group-append">
+                                                    <a hrerf="#" class="input-group-text bg-primary text-white" onclick="btcToClipboard()">Copy</a>
+                                                </div>
+                                            </div>
+                                        </form>
+
+                                        <ul>
+                                            <li>
+                                                <i class="mdi mdi-checkbox-blank-circle"></i>
+                                                BTC network transfers will be credited to your Urbank account after
+                                                25 network confirmations.
+                                            </li>
+                                            <li>
+                                                <i class="mdi mdi-checkbox-blank-circle"></i>
+                                                DOGE deposits to this address are unlimited. Note that you may not
+                                                be able to withdraw all of your funds at once if you deposit more
+                                                than your daily withdrawal limit.
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="tab-pane fade" id="tab2">
+                                        <div class="qrcode">
+                                            <!--div class="my-1" style="background-color: #FFFFFF; margin-left: 28.5rem; margin-right: 28.5rem;"-->
+                                                {{QRCodeDoge|safe}}
+                                            <!--/div-->
+                                        </div>
+                                        <form action="">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control"
+                                                    value="{{Doge_wallet}}" id="DOGEtext" disabled>
+                                                <div class="input-group-append">
+                                                    <a href="#" class="input-group-text bg-primary text-white" onclick="dogeToClipboard()">Copy</a>
+                                                </div>
+                                            </div>
+                                        </form>
+
+                                        <ul>
+                                            <li>
+                                                <i class="mdi mdi-checkbox-blank-circle"></i>
+                                                USDC network transfers will be credited to your Tradio account after
+                                                25 network confirmations.
+                                            </li>
+                                            <li>
+                                                <i class="mdi mdi-checkbox-blank-circle"></i>
+                                                USDC deposits to this address are unlimited. Note that you may not
+                                                be able to withdraw all of your funds at once if you deposit more
+                                                than your daily withdrawal limit.
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="tab-pane fade" id="tab3">
+                                        <div class="qrcode">
+                                            <!--div class="my-1" style="background-color: #FFFFFF; margin-left: 28.5rem; margin-right: 28.5rem;"-->
+                                                {{QRCodeETH|safe}}
+                                            <!--/div-->
+                                        </div>
+                                        <form action="">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control"
+                                                    value="{{ETH_wallet}}" id="ETHtext" disabled>
+                                                <div class="input-group-append">
+                                                    <a href="#" class="input-group-text bg-primary text-white" onclick="ethToClipboard()">Copy</a>
+                                                </div>
+                                            </div>
+                                        </form>
+
+                                        <ul>
+                                            <li>
+                                                <i class="mdi mdi-checkbox-blank-circle"></i>
+                                                USDC network transfers will be credited to your Tradio account after
+                                                25 network confirmations.
+                                            </li>
+                                            <li>
+                                                <i class="mdi mdi-checkbox-blank-circle"></i>
+                                                USDC deposits to this address are unlimited. Note that you may not
+                                                be able to withdraw all of your funds at once if you deposit more
+                                                than your daily withdrawal limit.
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <script>
+        function btcToClipboard(){
+            /* Get the text field */
+            var copyText = document.getElementById('BTCtext');
+            copyText.disabled = false;
+            //var copyText = document.getElementById('BTCtext').value;
+
+            /* Select the text field */
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+            /* Copy the text inside the text field */
+            document.execCommand("copy");
+            copyText.disabled = true;
+            //navigator.clipboard.writeText(copyText);
+
+            /* Alert the copied text */
+            alert("Copied the text: " + copyText.value);
+            //alert("Copied the text: " + copyText);
+        }
+
+        function dogeToClipboard(){
+            /* Get the text field */
+            var copyText = document.getElementById('DOGEtext');
+            copyText.disabled = false;
+            //var copyText = document.getElementById('BTCtext').value;
+
+            /* Select the text field */
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+            /* Copy the text inside the text field */
+            document.execCommand("copy");
+            copyText.disabled = true;
+            //navigator.clipboard.writeText(copyText);
+
+            /* Alert the copied text */
+            alert("Copied the text: " + copyText.value);
+            //alert("Copied the text: " + copyText);
+        }
+        
+        function ethToClipboard(){
+            /* Get the text field */
+            var copyText = document.getElementById('ETHtext');
+            copyText.disabled = false;
+            //var copyText = document.getElementById('BTCtext').value;
+
+            /* Select the text field */
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+            /* Copy the text inside the text field */
+            document.execCommand("copy");
+            copyText.disabled = true;
+            //navigator.clipboard.writeText(copyText);
+
+            /* Alert the copied text */
+            alert("Copied the text: " + copyText.value);
+            //alert("Copied the text: " + copyText);
+        }
+    </script>
+
+    <script src="{%static 'js/global.js' %}"></script>
+
+    <script src="{%static 'vendor/waves/waves.min.js' %}"></script>
+
+    <script src="{%static 'js/scripts.js' %}"></script>
+    {% endblock %}

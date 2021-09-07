@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% load static %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  {% block title %}{% endblock %}
+  
+    {%block sytles%}
+  <!-- Favicon icon -->
+  <link rel="icon" type="image/png" sizes="16x16" href="{%static 'images/favicon.ico' %}">
+  <link rel="stylesheet" href="{% static 'vendor/nice-select/css/nice-select.css' %}">
+  <link rel="stylesheet" href="{% static 'vendor/owl-carousel/css/owl.theme.default.css' %}">
+  <link rel="stylesheet" href="{% static 'vendor/owl-carousel/css/owl.carousel.min.css' %}">
+
+    
+  <!-- Custom Stylesheet -->
+  
+  <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+  {%endblock%}
+</head>
+
+<body>
+
+    {% block preload %}{% endblock %}
+
+    <div id="main-wrapper">
+
+        <div class="header dashboard">
+        <div class="container-fluid">
+            <div class="row">
+            <div class="col-xl-12">
+                <nav class="navbar navbar-expand-lg navbar-light px-0 justify-content-between">
+                <a class="navbar-brand" href="{% url 'dashboard'%}"><img src="{% static 'images/logoUB1.png' %}" alt=""></a>
+
+                {% block nav %}{% endblock %}
+
+                <div class="header-right d-flex my-2 align-items-center">
+                    <div class="language">
+                    <div class="dropdown">
+                        <div class="icon" data-toggle="dropdown">
+                        <i class="flag-icon flag-icon-us"></i>
+                        <span>English</span>
+                        </div>
+                        <div class="dropdown-menu dropdown-menu-right">
+                        <a href="#" class="dropdown-item">
+                            <i class="flag-icon flag-icon-bd"></i> Bengali
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="flag-icon flag-icon-fr"></i> French
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="flag-icon flag-icon-cn"></i> China
+                        </a>
+                        </div>
+                    </div>
+                    </div>
+                    
+                    <div class="dashboard_log">
+                    <div class="profile_log dropdown">                    
+                        <div class="user" data-toggle="dropdown">                     
+                        <span class="thumb"><i class="mdi mdi-account"></i></span>
+                        <span class="arrow"><i class="la la-angle-down"></i></span>
+                        </div>                   
+                        <div class="dropdown-menu dropdown-menu-right">
+                        <div class="user-email">
+                            {%if user.is_authenticated%}
+                            <div class="user">
+                            <span class="thumb"><i class="mdi mdi-account"></i></span>
+                            <div class="user-info">
+                                <h6>{{user.firstname}} {{user.lastname}}</h6>
+                                <span>{{user.email}}</span>
+                            </div>
+                            </div>
+                        </div>
+                        
+                        <div class="user-balance">
+                            <div class="available">
+                            <p>Available</p>
+                            <span>{{user.avbalance}} USD</span>
+                            </div>
+                            <div class="total">
+                            <p>Total</p>
+                            <span>{{user.totalbalance}} USD</span>
+                            </div>
+                        </div>
+                        
+                        <a href="{%url 'account-overview'%}" class="dropdown-item">
+                            <i class="mdi mdi-account"></i> Account
+                        </a>
+                        <a href="{%url 'history'%}" class="dropdown-item">
+                            <i class="mdi mdi-history"></i> History
+                        </a>
+                        <a href="{%url 'settings'%}" class="dropdown-item">
+                            <i class="mdi mdi-settings"></i> Setting
+                        </a>
+                        <a href="{%url 'lock'%}" class="dropdown-item">
+                            <i class="mdi mdi-lock"></i> Lock
+                        </a>
+                        <a href="{% url 'logout'%}" class="dropdown-item logout">
+                            <i class="mdi mdi-logout"></i> Logout
+                        </a>                     
+                        {%else%}
+                        <a href="{%url 'account-overview'%}" class="dropdown-item">
+                            <i class="mdi mdi-account"></i> Sign in
+                        </a>
+                        {%endif%}
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </nav>
+            </div>
+            </div>
+        </div>
+        </div>
+
+        {% block sidebar %}{% endblock %}
+        
+        {% block main %}{% endblock %}
+
+        {% block footer %}{% endblock %}
+
+    </div>
+
+</body>
+
+</html>

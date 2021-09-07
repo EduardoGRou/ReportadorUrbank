@@ -1,0 +1,131 @@
+
+    <body>
+        
+    </body>
+
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+    {%csrf_token%}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>UrBank: Email confirmation</title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="{source 'images/favicon.ico'%}">
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="{% static 'vendor/waves/waves.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+    <style>
+      /*
+      *** Personal Style bc we want no wizard
+      */
+
+      th{
+        padding: 0.5rem 2rem 0.5rem 0
+      }
+
+      h1{
+        text-align: center;
+        padding-bottom: 2rem;
+        font-weight: 100;
+        font-size: 1.5rem;
+      }
+    </style>
+</head>
+
+<body>
+    
+    <div id="preloader">
+        <div class="sk-three-bounce">
+        <div class="sk-child sk-bounce1"></div>
+        <div class="sk-child sk-bounce2"></div>
+        <div class="sk-child sk-bounce3"></div>
+        </div>
+    </div>
+
+    <div id="main-wrapper">
+
+        <div class="authincation section-padding">
+            <div class="mini-logo text-center my-5">
+                <a class="ml-2" href="{%url 'index'%}"><img src="{% static 'images/logoUB1.png'%}" alt=""></a>
+            </div>
+            <div class="container h-100">
+                <div class="row justify-content-center align-items-center">
+                    <div class="col-xl-5 col-md-6 auth-form card px-5 pb-5 pt-5">    
+                        <p class="mb-3">Please confirm your email</p>
+                        <div class="form-group">
+                            <form  method="post"> {% csrf_token %}
+                                {{form.email}}  
+                                <input type="submit" class="btn btn-primary mt-3" name='resend' disabled id='resend' value="Press to resend" />
+                            </form>
+                        </div>
+                        <p class="mt-3" id="timeLeft">Time Left: 30 seconds</p>     
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- {% block content %}
+        <div class="container">
+            <div class="login d-flex align-items-center">
+                <div class="col-12 col-md-12 col-lg-12 mx-auto">
+                    {% block sub_content %}{% endblock %}
+                </div>
+            </div>
+        </div>
+        {% endblock %}
+        {%if not user.is_authenticated%}
+        <p class="mt-3">Don't have an account? <a class="text-primary ml-2" href="{% url 'register' %}">Sign up</a></p>
+        {%else%}
+        <a class="btn btn-primary mt-3" href="{% url 'dashboard' %}">Go to dashboard</a>
+        {%endif%} -->
+
+    </div>
+
+    <script>
+        const idClasses = [
+            'id_email'
+        ]
+
+        idClasses.forEach(id => {
+            let domElem = document.getElementById(`${id}`)
+            domElem.classList.add('form-control')
+        })
+        // ENDOF asterisco
+    </script>
+
+    <script type="text/javascript">
+        setTimeout (function(){
+            document.getElementById('resend').disabled = false;
+        },30000);
+
+        var cooldown = 30;
+        incTimer();
+
+        function incTimer(){
+            setTimeout (function(){
+            if(cooldown != 0){
+                cooldown--;
+                document.getElementById('timeLeft').innerHTML = 'Time left: ' + cooldown + ' seconds';
+                incTimer();
+            } else {
+                document.getElementById('timeLeft').innerHTML = 'Ready!';
+            }
+            },1000);
+        }
+    </script>
+
+    <script src="{% static 'js/global.js'%}"></script>
+
+    <script src="{% static 'vendor/waves/waves.min.js'%}"></script>
+
+    <script src="{% static 'vendor/validator/jquery.validate.js'%}"></script>
+    <script src="{% static 'vendor/validator/validator-init.js'%}"></script>
+
+    <script src="{% static 'js/scripts.js'%}"></script>
+</form>
+</body>
+
+</html>

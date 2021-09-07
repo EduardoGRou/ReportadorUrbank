@@ -1,0 +1,49 @@
+{% extends 'baselayout.html' %}
+{% load static %}
+
+{% block title %}{% endblock %}
+
+{% block sidebar %}
+<div class="sidebar">
+    <div class="menu">
+        <ul>
+            <li>
+                <a href="{%url 'index'%}" data-toggle="tooltip" data-placement="right" title="Trade">
+                    <span><i class="mdi mdi-view-dashboard"></i></span>
+                </a>
+            </li>
+            <li>
+                <a href="{%url 'settings'%}" data-toggle="tooltip" data-placement="right" title="Setting">
+                    <span><i class="mdi mdi-settings"></i></span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
+
+{% block main %}{% endblock %}
+
+{% block footer %}
+<div class="footer dashboard">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-8 col-12">
+                <div class="copyright">
+                    <p>© 2021 Urbank by Velta BTC: $53,000.00 DOGE: $0.53888</p>
+                </div>
+            </div>
+            <div class="col-sm-4 col-12">
+                <div class="footer-social">
+                    <ul>
+                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                        <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
