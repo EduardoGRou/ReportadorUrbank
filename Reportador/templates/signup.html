@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Urbank Sign Up</title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="{%static 'images/favicon.ico' %}">
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="{%static 'vendor/waves/waves.min.css' %}">
+    <link rel="stylesheet" href="{%static 'css/style.css' %}">
+    <style>
+        ul{
+            margin-left: 2rem;
+            padding-bottom: 1rem;
+        }
+        label{
+            margin-top: 2rem;
+            margin-bottom: 0.2rem !important;
+            padding-left: 1%;
+        }
+        label.error{
+            position: relative !important;
+            display: block;
+            margin-top: 0 !important;
+        }
+        .my-required:before{
+            content: ' *';
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="preloader">
+        <div class="sk-three-bounce">
+            <div class="sk-child sk-bounce1"></div>
+            <div class="sk-child sk-bounce2"></div>
+            <div class="sk-child sk-bounce3"></div>
+        </div>
+    </div>
+
+    <div id="main-wrapper">
+
+        <div class="authincation section-padding">
+            <div class="container h-100">
+                <div class="row justify-content-center h-100 align-items-center">
+                    <div class="col-xl-5 col-md-6">
+                        <div class="mini-logo text-center my-5">
+                            <a href="{%url 'index'%}"><img src="{%static 'images/logoUB1.png' %}" alt=""></a>
+                        </div>
+                        <div class="auth-form card">
+                            <div class="card-header justify-content-center">
+                                <h4 class="card-title">Sign up your account</h4>
+                            </div>
+                            <div class="card-body">
+                                <form method="post" name="myform" class="signup_validate">
+                                    <div class="form-group">
+                                        <form method="POST">
+                                            {%csrf_token%}                                   
+                                            {{form.as_p}}  
+                                            <div class="row justify-content-center"> 
+                                                <button class="btn btn-secondary mt-3" type="submit">Sign up</button>
+                                            </div> 
+                                        </form>
+                                    </div>
+                                </form>
+                                <div class="new-account mt-3">
+                                    <p>Already have an account? <a class="text-primary ml-2" href="{% url 'login'%}">Sign in</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+<script>
+
+    /*
+    *** Para agregar un asterisco
+    *** 2021
+    */
+    // Begin asterisco
+    const idClasses = [
+    'id_username',
+    'id_firstname',
+    'id_lastname',
+    'id_email',
+    'id_phone',
+    'id_passportid',
+    'id_country',
+    'id_state',
+    'id_city',
+    'id_address1',
+    'id_address2',
+    'id_zipcode',
+    'id_password1',
+    'id_password2',
+    ]
+
+    idClasses.forEach(id => {
+        let domElem = document.getElementById(`${id}`)
+        domElem.classList.add('form-control')
+        let asterisco = document.createElement('SPAN')
+        if (id != 'id_address2'){
+            asterisco.classList.add('my-required')
+            domElem.before(asterisco)
+        }
+    })
+    // ENDOF asterisco
+
+</script>
+
+    <script src="{%static 'js/global.js' %}"></script>
+
+    <script src="{%static 'vendor/waves/waves.min.js' %}"></script>
+
+    <script src="{%static 'vendor/validator/jquery.validate.js' %}"></script>
+    <script src="{%static 'vendor/validator/validator-init.js' %}"></script>
+    <script src="{%static 'js/scripts.js' %}"></script>
+</body>
+
+</html>

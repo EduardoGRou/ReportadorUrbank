@@ -1,4 +1,4 @@
-"""Reportador URL Configuration
+"""UrBankDjango URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.2/topics/http/urls/
@@ -13,9 +13,37 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
+
+from principal.views import inicio, dashboard, account, deposit, emailconfirmation,register, appsettings, apphistory, applock
+from principal.views import notfound
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include,re_path
+from django_email_verification import urls as email_urls
+from django.views.static import serve 
+from django.conf import settings
 
 urlpatterns = [
+    re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
     path('admin/', admin.site.urls),
+    path('', inicio,name='index'),
+    path('',include("django.contrib.auth.urls")),
+    path('email/', include(email_urls)),	
+    path('confirm/', emailconfirmation, name='confirm'),
+    path('settings/', appsettings, name='settings'),
+    path('history/', apphistory, name='history'),
+    path('lock/', applock, name='lock'),
+    path('construccion/', notfound, name='404'),
+    
+    path('dashboard/',dashboard,name='dashboard'),
+    path('account/',account,name='account-overview'),
+    path('deposit/',deposit,name='account-deposit'),
+    path('register/',register,name='register'),
+    #re_path(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',activate,name='activate'),
+
+    
+
+    
+    
 ]
+
